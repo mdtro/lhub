@@ -59,3 +59,15 @@ def test_expected_default_http_headers_with_apikey():
     assert "User-Agent" in headers, "Missing 'User-Agent' header in default headers"
     assert "X-Auth-Token" in headers, "Missing 'X-Auth-Token' header in default headers (used with API key auth)"
 
+
+def test_raises_exception_on_session_cookie_with_apikey():
+    hostname = "testhostname"
+    lhub_api = LogicHubAPI(
+        hostname=hostname,
+        api_key="dummykey123456",
+        init_version="m1.2"
+
+    )
+
+    with pytest.raises(exceptions.LhBaseException):
+        _cookie = lhub_api.session_cookie
