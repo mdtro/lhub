@@ -45,3 +45,17 @@ def test_password_without_username_raises_exception():
             init_version="m1.2"
         )
 
+
+def test_expected_default_http_headers_with_apikey():
+    hostname = "testhostname"
+    lhub_api = LogicHubAPI(
+        hostname=hostname,
+        api_key="dummykey123456",
+        init_version="m1.2"
+
+    )
+
+    headers = lhub_api.default_http_headers
+    assert "User-Agent" in headers, "Missing 'User-Agent' header in default headers"
+    assert "X-Auth-Token" in headers, "Missing 'X-Auth-Token' header in default headers (used with API key auth)"
+
