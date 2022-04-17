@@ -134,12 +134,13 @@ class LogicHubAPI:
     def fields(self, value):
         self.__fields = cached_obj(int(time.time()), value)
 
-    @minimum_version(min=86.0, feature_label="linked alerts")
     @property
+    @minimum_version(min=86.0, feature_label="linked alerts")
     def system_field_lh_linked_alerts(self):
         for f in self.fields:
             if f.get('fieldName') == 'lh_linked_alerts':
                 return f
+        return None
 
     @property
     def version(self):
