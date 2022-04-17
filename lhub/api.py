@@ -14,6 +14,7 @@ from . import exceptions
 from .log import Logger
 from .url import URLs
 from .common import helpers
+from .common.decorators import minimum_version
 
 cached_obj = namedtuple('CachedObject', ['time', 'value'])
 
@@ -133,12 +134,12 @@ class LogicHubAPI:
     def fields(self, value):
         self.__fields = cached_obj(int(time.time()), value)
 
+    @minimum_version(min=86.0, feature_label="linked alerts")
     @property
     def system_field_lh_linked_alerts(self):
         for f in self.fields:
             if f.get('fieldName') == 'lh_linked_alerts':
                 return f
-        raise exceptions.validation.VersionMinimumNotMet(min_version='m86', feature_label='linked alerts')
 
     @property
     def version(self):

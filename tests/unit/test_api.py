@@ -52,7 +52,6 @@ def test_expected_default_http_headers_with_apikey():
         hostname=hostname,
         api_key="dummykey123456",
         init_version="m1.2"
-
     )
 
     headers = lhub_api.default_http_headers
